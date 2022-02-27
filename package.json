@@ -10,7 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky install",
     "prettier": "prettier --write **/*.{js,jsx,ts,tsx}",
-    "pre-commit": "npm run prettier:check",
+    "pre-commit": "npm run prettier && npm run prettier:check",
     "prettier:check": "prettier --check **/*.{js,jsx,ts,tsx}",
     "build": "npm run build:server && npm run build:client",
     "build:client": "cd client && npm run build",
