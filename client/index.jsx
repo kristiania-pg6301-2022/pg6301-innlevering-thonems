@@ -4,6 +4,8 @@ import { BrowserRouter } from "react-router-dom";
 import { Quiz } from "./Quiz";
 
 ReactDOM.render(
-  <BrowserRouter><Quiz/></BrowserRouter>,
+  <BrowserRouter>
+    <Quiz />
+  </BrowserRouter>,
   document.getElementById("app")
 );
