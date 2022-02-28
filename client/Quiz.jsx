@@ -68,11 +68,32 @@ export function Quiz() {
   const [questionsAnswered, setQuestionsAnswered] = useState(0);
   const [correctAnswer, setCorrectAnswer] = useState(0);
 
-  return ( <Routes>
-        <Route path={"/"} element={<FrontPage
-              questionsAnswered={questionsAnswered}
-              correctAnswer={correctAnswer}/>}/>
-              <Route path={"/question"} element={<ShowQuestion setQuestionsAnswered={setQuestionsAnswered} setCorrectAnswer={setCorrectAnswer}/>}/>
-      </Routes>
-    );
+  return (
+    <Routes>
+      <Route
+        path={"/"}
+        element={
+          <FrontPage
+            questionsAnswered={questionsAnswered}
+            correctAnswer={correctAnswer}
+          />
+        }
+      />
+      <Route
+        path={"/question"}
+        element={
+          <ShowQuestion
+            setQuestionsAnswered={setQuestionsAnswered}
+            setCorrectAnswer={setCorrectAnswer}
+          />
+        }
+      />
+        <Route
+            path={"/answer/*"} //* is wildcard so it triggers for correct and wrong
+            element={
+                <ShowAnswer/>
+            }
+        />
+    </Routes>
+  );
 }
