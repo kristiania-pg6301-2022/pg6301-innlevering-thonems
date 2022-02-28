@@ -5,8 +5,8 @@ const app = express();
 
 app.get("/api/question", (req, res) => {
   res.json({
-    id:"5",
-    category:"Mat",
+    id: "5",
+    category: "Mat",
     question: "hva gjør du?",
     answer: "dummy svar",
   });
