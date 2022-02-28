@@ -1,8 +1,18 @@
 import React, {useContext, useState} from "react";
+import {Link, Route, Routes, useNavigate} from "react-router-dom";
 import {randomQuestion, isCorrectAnswer} from "../server/questions";
-import {Routes} from "react-router-dom";
+
+export const QuestionContext = React.createContext({randomQuestion})
 
 function FrontPage(){
+    return null;
+}
+
+export function ShowQuestion(){
+    return null;
+}
+
+function ShowAnswer(){
     return null;
 }
 
