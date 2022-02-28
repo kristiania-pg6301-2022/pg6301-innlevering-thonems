@@ -68,19 +68,11 @@ export function Quiz() {
   const [questionsAnswered, setQuestionsAnswered] = useState(0);
   const [correctAnswer, setCorrectAnswer] = useState(0);
 
-  return (
-    <div>
-      <Routes>
-        <Route
-          path={"/"}
-          element={
-            <FrontPage
+  return ( <Routes>
+        <Route path={"/"} element={<FrontPage
               questionsAnswered={questionsAnswered}
-              correctAnswer={correctAnswer}
-            />
-          }
-        />
+              correctAnswer={correctAnswer}/>}/>
+              <Route path={"/question"} element={<ShowQuestion setQuestionsAnswered={setQuestionsAnswered} setCorrectAnswer={setCorrectAnswer}/>}/>
       </Routes>
-    </div>
-  );
+    );
 }
