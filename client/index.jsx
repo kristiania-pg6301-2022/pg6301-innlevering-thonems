@@ -1,4 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
+import { Quiz } from "./Quiz";
 
-ReactDOM.render(<h1>HELLO WORLD QUIZ</h1>, document.getElementById("app"));
+ReactDOM.render(
+  <BrowserRouter><Quiz/></BrowserRouter>,
+  document.getElementById("app")
+);
