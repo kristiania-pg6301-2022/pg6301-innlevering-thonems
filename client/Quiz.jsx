@@ -88,12 +88,10 @@ export function Quiz() {
           />
         }
       />
-        <Route
-            path={"/answer/*"} //* is wildcard so it triggers for correct and wrong
-            element={
-                <ShowAnswer/>
-            }
-        />
+      <Route
+        path={"/answer/*"} //* is wildcard so it triggers for correct and wrong
+        element={<ShowAnswer />}
+      />
     </Routes>
   );
 }
