@@ -21,7 +21,12 @@ app.use((req, res, next) => {
 });
 
 //todo
-//app.post("/api/question")
+app.post("/api/question",(req,res) =>{
+
+  //tar inn id og answer -> false ? true
+  //const id = req.body;
+  //const answer = req.body;
+})
 
 const server = app.listen(process.env.PORT || 3000, () => {
   console.log(`Server started on: http://localhost:${server.address().port}`);
