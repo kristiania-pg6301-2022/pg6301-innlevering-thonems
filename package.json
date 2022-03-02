@@ -8,9 +8,6 @@
     "dev": "concurrently npm:dev:client npm:dev:server",
     "dev:client": "cd client && npm run dev",
     "dev:server": "cd server && npm run dev",
-    "test": "npm run test:client && npm run test:server",
-    "test:client": "cd client && npm run test",
-    "test:server": "cd server && npm run test",
     "prepare": "husky install",
     "prettier": "prettier --write **/*.{js,jsx,ts,tsx}",
     "pre-commit": "npm run prettier && npm run prettier:check",
@@ -20,7 +17,7 @@
     "build:server": "cd server && npm run build",
     "verify": "npm run verify:client && npm run verify:server",
     "verify:client": "cd client && npm run verify",
-    "verify:server": "cd server && npm run server",
+    "verify:server": "cd server && npm run verify",
     "start": "cd server && npm start"
   },
   "repository": {
