@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { MemoryRouter } from "react-router-dom";
-import {Quiz, QuestionContext, ShowQuestion} from "../Quiz";
+import { Quiz, QuestionContext, ShowQuestion } from "../Quiz";
 
 const questionNotRandom = {
   question: "Are you at least trying?",
@@ -34,22 +34,25 @@ describe("", () => {
   });
 
   it("Shows the answer you choose", () => {
-    const questionAnswered = jest.fn()
-    const correctAnswer = jest.fn()
-
+    const questionAnswered = jest.fn();
+    const correctAnswer = jest.fn();
 
     const element = document.createElement("div");
 
     ReactDOM.render(
-        <MemoryRouter initialEntries={["/question"]}>
-          <QuestionContext.Provider value={{randomQuestion: () => questionNotRandom}}>
-            <ShowQuestion setQuestionsAnswered={questionAnswered} setCorrectAnswer={correctAnswer}/>
-          </QuestionContext.Provider>
-        </MemoryRouter>, element
-
+      <MemoryRouter initialEntries={["/question"]}>
+        <QuestionContext.Provider
+          value={{ randomQuestion: () => questionNotRandom }}
+        >
+          <ShowQuestion
+            setQuestionsAnswered={questionAnswered}
+            setCorrectAnswer={correctAnswer}
+          />
+        </QuestionContext.Provider>
+      </MemoryRouter>,
+      element
     );
-    expect(questionAnswered).toBeCalled()
-    expect(correctAnswer).toBeCalled()
-
+    expect(questionAnswered).toBeCalled();
+    expect(correctAnswer).toBeCalled();
   });
 });
