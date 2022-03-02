@@ -17,7 +17,7 @@ const questionNotRandom = {
     answer_b_correct: "false",
     answer_c_correct: "true",
     answer_d_correct: "false",
-  }
+  },
 };
 
 describe("", () => {
