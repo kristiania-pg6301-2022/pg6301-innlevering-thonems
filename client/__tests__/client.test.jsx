@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { MemoryRouter } from "react-router-dom";
-import { Quiz, QuestionContext, ShowQuestion, FrontPage } from "../Quiz";
+import { Quiz, QuestionContext, ShowQuestion, FrontPage } from "../Quiz.jsx";
 import { Simulate } from "react-dom/test-utils";
 
 const questionNotRandom = {
