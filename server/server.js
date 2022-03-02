@@ -23,8 +23,7 @@ app.use((req, res, next) => {
 //todo
 app.post("/api/question", (req, res) => {
   //tar inn id og answer -> false ? true
-  //const id = req.body;
-  //const answer = req.body;
+  const { id, answer } = res.body;
 });
 
 const server = app.listen(process.env.PORT || 3000, () => {
