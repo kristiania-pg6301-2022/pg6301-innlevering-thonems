@@ -1,6 +1,12 @@
 import React, { useContext, useState } from "react";
-import { Link, Route, Routes, useNavigate } from "react-router-dom";
-import { randomQuestion, isCorrectAnswer } from "../server/questions";
+import {
+  BrowserRouter,
+  Link,
+  Route,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
+import { randomQuestion, isCorrectAnswer } from "./questions";
 
 export const QuestionContext = React.createContext({ randomQuestion });
 
@@ -18,7 +24,7 @@ function FrontPage({ correctAnswer, questionsAnswered }) {
   );
 }
 
-export function ShowQuestion({ setCorrectAnswer, setQuestionsAnswered }) {
+function ShowQuestion({ setCorrectAnswer, setQuestionsAnswered }) {
   function handleAnswer(answer) {
     setQuestionsAnswered((q) => q + 1);
     if (isCorrectAnswer(question, answer)) {
