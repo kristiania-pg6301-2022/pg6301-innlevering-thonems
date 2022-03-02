@@ -1,5 +1,7 @@
-import { render } from "react-dom";
+import ReactDOM from "react-dom";
 import * as React from "react";
+import { MemoryRouter } from "react-router-dom";
+import { Quiz } from "../Quiz";
 
 describe("", () => {
   it("Test if test runs on client", () => {
@@ -8,8 +10,12 @@ describe("", () => {
 
   it("Should render question", () => {
     const element = document.createElement("div");
-
-    render(<ShowQuestion />, element);
+    ReactDOM.render(
+      <MemoryRouter initialEntries={"/question"}>
+        <Quiz />
+      </MemoryRouter>,
+      element
+    );
     expect(element.innerHTML).toMatchSnapshot();
   });
 });
