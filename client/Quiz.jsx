@@ -24,7 +24,7 @@ function FrontPage({ correctAnswer, questionsAnswered }) {
   );
 }
 
-function ShowQuestion({ setCorrectAnswer, setQuestionsAnswered }) {
+export function ShowQuestion({ setCorrectAnswer, setQuestionsAnswered }) {
   function handleAnswer(answer) {
     setQuestionsAnswered((q) => q + 1);
     if (isCorrectAnswer(question, answer)) {
