@@ -1,6 +1,5 @@
-import {ShowQuestion} from "../Quiz";
-import {render} from "react-dom";
-
+import { ShowQuestion } from "../Quiz";
+import { render } from "react-dom";
 
 describe("", () => {
   it("Test if test runs on client", () => {
@@ -8,9 +7,9 @@ describe("", () => {
   });
 
   it("Should render question", () => {
-      const element = document.createElement("div");
+    const element = document.createElement("div");
 
-      render(<ShowQuestion/>, element);
-      expect(element.innerHTML).toMatchSnapshot();
+    render(<ShowQuestion />, element);
+    expect(element.innerHTML).toMatchSnapshot();
   });
 });
