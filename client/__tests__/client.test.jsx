@@ -1,5 +1,5 @@
+import React from "react";
 import ReactDOM from "react-dom";
-import * as React from "react";
 import { MemoryRouter } from "react-router-dom";
 import { Quiz } from "../Quiz";
 
@@ -11,7 +11,7 @@ describe("", () => {
   it("Should render question", () => {
     const element = document.createElement("div");
     ReactDOM.render(
-      <MemoryRouter initialEntries={"/question"}>
+      <MemoryRouter initialEntries={"[/question]"}>
         <Quiz />
       </MemoryRouter>,
       element
