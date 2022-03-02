@@ -1,6 +1,7 @@
 {
   "name": "server",
   "version": "1.0.0",
+  "description": "Server quiz",
   "type": "module",
   "scripts": {
     "dev": "nodemon server.js",
@@ -28,7 +29,11 @@
   "babel": {
     "presets": [
       "@babel/preset-env",
-      "@babel/preset-react"
+      {
+        "targets": {
+          "node": "current"
+        }
+      }
     ]
   },
   "jest": {
