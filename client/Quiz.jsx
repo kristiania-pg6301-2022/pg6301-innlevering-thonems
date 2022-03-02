@@ -10,7 +10,7 @@ import { randomQuestion, isCorrectAnswer } from "./questions";
 
 export const QuestionContext = React.createContext({ randomQuestion });
 
-function FrontPage({ correctAnswer, questionsAnswered }) {
+export function FrontPage({ correctAnswer, questionsAnswered }) {
   return (
     <div>
       <h1>FREDAGSQUIZEN-PROGGERN</h1>

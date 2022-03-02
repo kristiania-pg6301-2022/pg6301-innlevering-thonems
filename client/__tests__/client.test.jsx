@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { MemoryRouter } from "react-router-dom";
-import { Quiz, QuestionContext, ShowQuestion } from "../Quiz";
+import { Quiz, QuestionContext, ShowQuestion, FrontPage } from "../Quiz";
 import { Simulate } from "react-dom/test-utils";
 
 const questionNotRandom = {
@@ -20,7 +20,7 @@ const questionNotRandom = {
   },
 };
 
-describe("", () => {
+describe("Tests for the client", () => {
   it("Test if test runs on client", () => {
     expect(3).toBe(3);
   });
@@ -63,5 +63,18 @@ describe("", () => {
 
     expect(questionAnswered).toBeCalled();
     expect(correctAnswer).toBeCalled();
+  });
+
+  it("show your score", () => {
+    const element = document.createElement("div");
+    ReactDOM.render(
+      <MemoryRouter>
+        <FrontPage questionsAnswered={4} correctAnswer={2} />
+      </MemoryRouter>,
+      element
+    );
+    expect(element.querySelector("[data-testid=status]").textContent).toEqual(
+      "You have answered 2 of 4 correctly "
+    );
   });
 });
