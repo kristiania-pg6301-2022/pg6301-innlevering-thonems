@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { MemoryRouter } from "react-router-dom";
 import { Quiz, QuestionContext, ShowQuestion } from "../Quiz";
+import {Simulate} from "react-dom/test-utils";
 
 const questionNotRandom = {
   question: "Are you at least trying?",
@@ -52,6 +53,7 @@ describe("", () => {
       </MemoryRouter>,
       element
     );
+    Simulate.click(element.querySelector("[data-testid=answer_c]"));
     expect(questionAnswered).toBeCalled();
     expect(correctAnswer).toBeCalled();
   });
