@@ -1,3 +1,4 @@
+[![Coverage Status](https://coveralls.io/repos/github/kristiania-pg6301-2022/pg6301-innlevering-thonems/badge.svg?branch=main)](https://coveralls.io/github/kristiania-pg6301-2022/pg6301-innlevering-thonems?branch=main)
 # Quiz innlevering
 Laget av Thomas Nemeth og Mathias Løkken
 
