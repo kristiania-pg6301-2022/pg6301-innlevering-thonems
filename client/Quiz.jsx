@@ -35,7 +35,7 @@ function ShowQuestion({ setCorrectAnswer, setQuestionsAnswered }) {
     }
   }
   const navigate = useNavigate();
-  const { randomQuestion } = useContext(QuestionContext);
+  const { randomQuestion } = useContext(QuestionContext); // sets the question to be test question for the test
   const [question] = useState(randomQuestion());
   return (
     <div>
