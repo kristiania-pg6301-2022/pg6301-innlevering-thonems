@@ -12,7 +12,7 @@ const questionNotRandom = {
     answer_c: "I'm trying my best",
     answer_d: "no",
   },
-  correctAnswer: {
+  correct_answers: {
     answer_a_correct: "false",
     answer_b_correct: "false",
     answer_c_correct: "true",
@@ -59,7 +59,8 @@ describe("", () => {
       </MemoryRouter>,
       element
     );
-    Simulate.click(element.querySelector("[data-testid=answer_c]"));
+    Simulate.click(element.querySelector("[data-testid=answer_c] button"));
+
     expect(questionAnswered).toBeCalled();
     expect(correctAnswer).toBeCalled();
   });
