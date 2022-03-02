@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` Should render question 1`] = `"<div><h1>How does a WHILE loop start?</h1><div data-testid=\\"answer_a\\"><button>while (i &lt;= 10)</button></div><div data-testid=\\"answer_b\\"><button>while i = 1 to 10</button></div><div data-testid=\\"answer_c\\"><button>while (i &lt;= 10; i++)</button></div></div>"`;
