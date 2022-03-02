@@ -76,5 +76,6 @@ describe("Tests for the client", () => {
     expect(element.querySelector("[data-testid=status]").textContent).toEqual(
       "You have answered 2 of 4 correctly "
     );
+    expect(element.innerHTML).toMatchSnapshot();
   });
 });
