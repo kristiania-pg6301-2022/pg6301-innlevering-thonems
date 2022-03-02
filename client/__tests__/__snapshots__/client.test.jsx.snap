@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[` Should render question 1`] = `"<div><h1>Are you at least trying?</h1><div data-testid=\\"answer_a\\"><button>Yes</button></div><div data-testid=\\"answer_b\\"><button>I am!</button></div><div data-testid=\\"answer_c\\"><button>I'm trying my best</button></div><div data-testid=\\"answer_d\\"><button>no</button></div></div>"`;
-
-exports[`Tests for the client Should render question 1`] = `"<div><h1>Are you at least trying?</h1><div data-testid=\\"answer_a\\"><button>Yes</button></div><div data-testid=\\"answer_b\\"><button>I am!</button></div><div data-testid=\\"answer_c\\"><button>I'm trying my best</button></div><div data-testid=\\"answer_d\\"><button>no</button></div></div>"`;
-
-exports[`Tests for the client show your score 1`] = `"<div><h1>FREDAGSQUIZEN-PROGGERN</h1><div data-testid=\\"status\\">You have answered 2 of 4 correctly </div><a href=\\"/question\\"><button>Take a new quiz</button></a></div>"`;
