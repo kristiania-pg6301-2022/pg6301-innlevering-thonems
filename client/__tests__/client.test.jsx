@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { MemoryRouter } from "react-router-dom";
 import { Quiz, QuestionContext, ShowQuestion } from "../Quiz";
-import {Simulate} from "react-dom/test-utils";
+import { Simulate } from "react-dom/test-utils";
 
 const questionNotRandom = {
   question: "Are you at least trying?",
@@ -12,6 +12,12 @@ const questionNotRandom = {
     answer_c: "I'm trying my best",
     answer_d: "no",
   },
+  correctAnswer: {
+    answer_a_correct: "false",
+    answer_b_correct: "false",
+    answer_c_correct: "true",
+    answer_d_correct: "false",
+  }
 };
 
 describe("", () => {
