@@ -9,6 +9,7 @@ import {
   useNavigate,
 } from "react-router-dom";
 
+
 export function FrontPage({ correctAnswer, questionsAnswered }) {
   return (
     <div>
