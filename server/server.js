@@ -8,7 +8,6 @@ import cookieParser from "cookie-parser";
 dotenv.config();
 
 const app = express();
-
 app.use(bodyParser.json());
 app.use(cookieParser(process.env.COOKIE_SECRET));
 
@@ -67,12 +66,6 @@ app.use((req, res, next) => {
   } else {
     next();
   }
-});
-
-//todo
-app.post("/api/question", (req, res) => {
-  //tar inn id og answer -> false ? true
-  const { id, answer } = res.body;
 });
 
 const server = app.listen(process.env.PORT || 3000, () => {
