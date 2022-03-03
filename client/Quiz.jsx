@@ -1,7 +1,18 @@
 import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { fetchJSON, postJSON } from "./http";
 import { useLoader } from "./useLoader";
 import { Link } from "react-router-dom";
+import {
+  BrowserRouter,
+  Link,
+  Route,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
+import { randomQuestion, isCorrectAnswer } from "./questions";
+
+export const QuestionContext = React.createContext({ randomQuestion });
 
 export function FrontPage({ correctAnswer, questionsAnswered }) {
   return (
@@ -16,13 +27,20 @@ export function FrontPage({ correctAnswer, questionsAnswered }) {
     </div>
   );
 }
-
-export function ShowQuestion({ question, onReload }) {
-  async function handleAnswer(answer) {
-    const { id } = question;
-    postJSON("/quiz/answer", { id, answer });
-    onReload();
+export function ShowQuestion({ setCorrectAnswer, setQuestionsAnswered }) {
+  function handleAnswer(answer) {
+    setQuestionsAnswered((q) => q + 1);
+    if (isCorrectAnswer(question, answer)) {
+      setCorrectAnswer((q) => q + 1);
+      navigate("/answer/correct");
+    } else {
+      navigate("/answer/wrong");
+    }
   }
+  const navigate = useNavigate();
+  const { randomQuestion } = useContext(QuestionContext); // sets the question to be test question for the test
+  const [question] = useState(randomQuestion());
+
   return (
     <div>
       <h1>{question.question}</h1>
@@ -38,7 +56,7 @@ export function ShowQuestion({ question, onReload }) {
     </div>
   );
 }
-/*
+
 function ShowAnswer() {
   return (
     <div>
@@ -55,47 +73,34 @@ function ShowAnswer() {
     </div>
   );
 }
- */
-
-function QuestionComponent({ reload }) {
-  const [question, setQuestion] = useState();
-
-  async function handleLoadQuestion() {
-    const res = await fetch("/quiz/random");
-    setQuestion(await res.json());
-  }
-
-  function handleReload() {
-    setQuestion(undefined);
-    reload();
-  }
-
-  if (!question) {
-    return (
-      <div>
-        <button onClick={handleLoadQuestion} Load a new question></button>
-      </div>
-    );
-  }
-  return <ShowQuestion question={question} onReload={handleReload} />;
-}
-
 export function Quiz() {
-  const {
-    data: score,
-    loading,
-    reload,
-  } = useLoader(async () => fetchJSON("/quiz/score"));
+  const [questionsAnswered, setQuestionsAnswered] = useState(0);
+  const [correctAnswer, setCorrectAnswer] = useState(0);
+
   return (
-    <>
-      <h1>Welcome to the quiz show</h1>
-      {loading && <div>Loading...</div>}
-      {score && (
-        <div>
-          You have answered {score.correct} out of {score.answered} correct
-        </div>
-      )}
-      <QuestionComponent reload={reload} />
-    </>
+    <Routes>
+      <Route
+        path={"/"}
+        element={
+          <FrontPage
+            questionsAnswered={questionsAnswered}
+            correctAnswer={correctAnswer}
+          />
+        }
+      />
+      <Route
+        path={"/question"}
+        element={
+          <ShowQuestion
+            setQuestionsAnswered={setQuestionsAnswered}
+            setCorrectAnswer={setCorrectAnswer}
+          />
+        }
+      />
+      <Route
+        path={"/answer/*"} //* is wildcard so it triggers for correct and wrong
+        element={<ShowAnswer />}
+      />
+    </Routes>
   );
 }
