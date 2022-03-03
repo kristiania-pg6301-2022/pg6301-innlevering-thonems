@@ -1,14 +1,7 @@
 import React, { useState } from "react";
 import { fetchJSON, postJSON } from "./http";
 import { useLoader } from "./useLoader";
-import {
-  BrowserRouter,
-  Link,
-  Route,
-  Routes,
-  useNavigate,
-} from "react-router-dom";
-
+import { Link } from "react-router-dom";
 
 export function FrontPage({ correctAnswer, questionsAnswered }) {
   return (
@@ -17,7 +10,7 @@ export function FrontPage({ correctAnswer, questionsAnswered }) {
       <div data-testid={"status"}>
         You have answered {correctAnswer} of {questionsAnswered} correctly{" "}
       </div>
-      <Link to={"quiz/question"}>
+      <Link to={"/question"}>
         <button>Take a new quiz</button>
       </Link>
     </div>
