@@ -24,7 +24,7 @@ describe("Tests for the client", () => {
   it("Test if test runs on client", () => {
     expect(3).toBe(3);
   });
-  /*
+
   it("Should render question", () => {
     const element = document.createElement("div");
     ReactDOM.render(
@@ -64,8 +64,6 @@ describe("Tests for the client", () => {
     expect(questionAnswered).toBeCalled();
     expect(correctAnswer).toBeCalled();
   });
-
-*/
 
   it("show your score", () => {
     const element = document.createElement("div");
