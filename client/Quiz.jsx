@@ -1,15 +1,20 @@
-import React, { useState } from "react";
-import { fetchJSON, postJSON } from "./http";
-import { useLoader } from "./useLoader";
-import { Link } from "react-router-dom";
+import React, { useContext, useState, useEffect } from "react";
+import {
+  BrowserRouter,
+  Link,
+  Route,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
+import { randomQuestion, isCorrectAnswer } from "./questions";
 
-export function FrontPage({ correctAnswer, questionsAnswered }) {
+//export const QuestionContext = React.createContext({ randomQuestion });
+
+export function FrontPage() {
   return (
     <div>
       <h1>FREDAGSQUIZEN-PROGGERN</h1>
-      <div data-testid={"status"}>
-        You have answered {correctAnswer} of {questionsAnswered} correctly{" "}
-      </div>
+      <div></div>
       <Link to={"/question"}>
         <button>Take a new quiz</button>
       </Link>
@@ -17,19 +22,45 @@ export function FrontPage({ correctAnswer, questionsAnswered }) {
   );
 }
 
-export function ShowQuestion({ question, onReload }) {
-  async function handleAnswer(answer) {
-    const { id } = question;
-    postJSON("/quiz/answer", { id, answer });
-    onReload();
+export function ShowQuestion() {
+  const navigate = useNavigate();
+
+  const { loading, error, data, load } = loader(
+    async () => await fetchJSON("/api/question")
+  );
+  const question = data;
+  if (loading) {
+    return <div>Loading...</div>;
   }
+  if (error) {
+    return (
+      <div>
+        <h1>Error</h1>
+        <h2>error.toString()</h2>
+      </div>
+    );
+  }
+
+  async function handleAnswer(answer) {
+    /*const res = await fetch("/api/question", {
+      method: "post",
+      body: JSON.stringify({id, answer}),
+      headers: { "content-type": "application/json" },
+    });
+*/
+
+    const { id } = question;
+    await postJSON("/api/question", { id, answer });
+    await load();
+  }
+
   return (
     <div>
       <h1>{question.question}</h1>
       {Object.keys(question.answers)
         .filter((a) => question.answers[a])
         .map((a) => (
-          <div key={a} data-testid={a}>
+          <div key={a}>
             <button onClick={() => handleAnswer(a)}>
               {question.answers[a]}
             </button>
@@ -38,64 +69,79 @@ export function ShowQuestion({ question, onReload }) {
     </div>
   );
 }
-/*
-function ShowAnswer() {
+async function fetchJSON(url) {
+  const res = await fetch(url);
+  if (res.status === 200) {
+    return await res.json();
+  }
+  if (!res.ok) {
+    throw new Error(`Failed to load ${res.sendStatus()}: ${res.statusText}`);
+  }
+}
+
+async function postJSON(url, json) {
+  const res = await fetch(url, {
+    method: "post",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(json),
+  });
+  if (!res.ok) {
+    throw new Error(res.statusText + res.status);
+  }
+
+  //not working, can't figure out how to extract the correct boolean
+  if (isCorrectAnswer(res)) {
+    navigate("/right");
+  } else {
+    navigate("/wrong");
+  }
+}
+
+function loader(loadingFunction) {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState();
+  const [data, setData] = useState();
+
+  async function load() {
+    setLoading(true);
+    setError(undefined);
+    try {
+      setData(await loadingFunction());
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    load();
+  }, []);
+  return { loading, error, data, load };
+}
+
+export function wrong() {
   return (
-    <div>
-      <Routes>
-        <Route path={"correct"} element={<h1>CORRECT!!!</h1>}></Route>
-        <Route path={"wrong"} element={<h1>WRONG;(</h1>}></Route>
-      </Routes>
+    <Route>
       <div>
-        <Link to={"/"}> Show score </Link>{" "}
+        <h1>Sorry, you answered wrong</h1>
+        <Link path={"/question"}>
+          <button>Neste spørsmål</button>
+        </Link>
       </div>
-      <div>
-        <Link to={"/question"}> New question </Link>{" "}
-      </div>
-    </div>
+    </Route>
   );
 }
- */
 
-function QuestionComponent({ reload }) {
-  const [question, setQuestion] = useState();
-
-  async function handleLoadQuestion() {
-    const res = await fetch("/quiz/random");
-    setQuestion(await res.json());
-  }
-
-  function handleReload() {
-    setQuestion(undefined);
-    reload();
-  }
-
-  if (!question) {
-    return (
-      <div>
-        <button onClick={handleLoadQuestion} Load a new question></button>
-      </div>
-    );
-  }
-  return <ShowQuestion question={question} onReload={handleReload} />;
-}
-
-export function Quiz() {
-  const {
-    data: score,
-    loading,
-    reload,
-  } = useLoader(async () => fetchJSON("/quiz/score"));
+export function right() {
   return (
-    <>
-      <h1>Welcome to the quiz show</h1>
-      {loading && <div>Loading...</div>}
-      {score && (
-        <div>
-          You have answered {score.correct} out of {score.answered} correct
-        </div>
-      )}
-      <QuestionComponent reload={reload} />
-    </>
+    <div>
+      <h1>Right answer!</h1>
+      <Link path={"/question"}>
+        <button>Neste spørsmål</button>
+      </Link>
+    </div>
   );
 }

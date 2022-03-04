@@ -5,62 +5,29 @@ import { isCorrectAnswer, Questions, randomQuestion } from "./questions.js";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 
-dotenv.config();
-
 const app = express();
-
 app.use(bodyParser.json());
-app.use(cookieParser(process.env.COOKIE_SECRET));
+app.use(express.static("../client/dist"));
 
 app.get("/api/question", (req, res) => {
-  res.json({
-    id: "5",
-    category: "Mat",
-    question: "hva gjør du?",
-    answer: "dummy svar",
-  });
+  const { id, category, question, answers } = randomQuestion();
+  return res.json({ id, question, answers, category });
 });
 
-app.get("/quiz/score", (req, res) => {
-  const score = req.signedCookies.score
-    ? JSON.parse(req.signedCookies.score)
-    : {
-        answered: 0,
-        correct: 0,
-      };
-
-  res.json(score);
-});
-
-app.get("/quiz/answer", (req, res) => {
-  const { id, answer } = req.body;
-  const score = req.signedCookies.score
-    ? JSON.parse(req.signedCookies.score)
-    : {
-        answered: 0,
-        correct: 0,
-      };
+app.post("/api/question", (req, res) => {
+  const { answer, id } = req.body;
   const question = Questions.find((q) => q.id === id);
   if (!question) {
-    return res.sendStatus(404);
+    res.sendStatus(404);
   }
-  score.answered += 1;
-  if (isCorrectAnswer(question, answer)) {
-    score.correct += 1;
-    res.cookie("score", JSON.stringify(score), { signed: true });
-    return res.json({ result: "correct" });
+  //check score and send back true or false
+  if (isCorrectAnswer(answer, id)) {
+    res.json({ correct: "true" });
   } else {
-    res.cookie("score", JSON.stringify(score), { signed: true });
-    return res.json({ result: "incorrect" });
+    res.json({ correct: "false" });
   }
 });
 
-app.get("/quiz/random", (req, res) => {
-  const { id, question } = randomQuestion();
-  res.json({ id, question, answers });
-});
-
-app.use(express.static("../client/dist"));
 app.use((req, res, next) => {
   if (req.method === "GET" && !req.path.startsWith("/api/")) {
     return res.sendFile(path.resolve("../client/dist/index.html"));
@@ -69,12 +36,8 @@ app.use((req, res, next) => {
   }
 });
 
-//todo
-app.post("/api/question", (req, res, next) => {
-  //tar inn id og answer -> false ? true
-  const { id, answer } = res.body;
-});
-
 const server = app.listen(process.env.PORT || 3000, () => {
   console.log(`Server started on: http://localhost:${server.address().port}`);
 });
+
+export default app;
