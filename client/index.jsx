@@ -9,6 +9,8 @@ function Quiz() {
       <Routes>
         <Route path={"/"} element={<FrontPage />} />
         <Route path={"/question"} element={<ShowQuestion />} />
+        <Route path={"/wrong"} element={<wrong />} />
+        <Route path={"/right"} element={<right />} />
       </Routes>
     </BrowserRouter>
   );
