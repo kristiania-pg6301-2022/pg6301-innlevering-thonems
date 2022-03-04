@@ -23,7 +23,6 @@ export function FrontPage() {
 }
 
 export function ShowQuestion() {
-  const [answered, setAnswered] = useState("");
   const navigate = useNavigate();
 
   const { loading, error, data, load } = loader(
@@ -69,30 +68,37 @@ export function ShowQuestion() {
         ))}
     </div>
   );
-
-  async function fetchJSON(url) {
-    const res = await fetch(url);
-    if (res.status === 200) {
-      return await res.json();
-    }
-    if (!res.ok) {
-      throw new Error(`Failed to load ${res.sendStatus()}: ${res.statusText}`);
-    }
+}
+async function fetchJSON(url) {
+  const res = await fetch(url);
+  if (res.status === 200) {
+    return await res.json();
   }
-
-  async function postJSON(url, json) {
-    const res = await fetch(url, {
-      method: "post",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(json),
-    });
-    if (!res.ok) {
-      throw new Error(res.statusText + res.status);
-    }
+  if (!res.ok) {
+    throw new Error(`Failed to load ${res.sendStatus()}: ${res.statusText}`);
   }
 }
+
+async function postJSON(url, json) {
+  const res = await fetch(url, {
+    method: "post",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(json),
+  });
+  if (!res.ok) {
+    throw new Error(res.statusText + res.status);
+  }
+
+  //not working, can't figure out how to extract the correct boolean
+  if (isCorrectAnswer(res)) {
+    navigate("/right");
+  } else {
+    navigate("/wrong");
+  }
+}
+
 function loader(loadingFunction) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
