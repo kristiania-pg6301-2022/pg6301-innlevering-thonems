@@ -26,8 +26,8 @@ export function ShowQuestion() {
   const [answered, setAnswered] = useState("");
   const navigate = useNavigate();
 
-  const {loading, error, data, load} = loader(
-      async () => await fetchJSON("/api/question")
+  const { loading, error, data, load } = loader(
+    async () => await fetchJSON("/api/question")
   );
   const question = data;
   if (loading) {
@@ -35,10 +35,10 @@ export function ShowQuestion() {
   }
   if (error) {
     return (
-        <div>
-          <h1>Error</h1>
-          <h2>error.toString()</h2>
-        </div>
+      <div>
+        <h1>Error</h1>
+        <h2>error.toString()</h2>
+      </div>
     );
   }
 
@@ -50,26 +50,24 @@ export function ShowQuestion() {
     });
 */
 
-    const {id} = question;
-    await postJSON("/api/question", {id, answer});
+    const { id } = question;
+    await postJSON("/api/question", { id, answer });
     await load();
-
-
   }
 
   return (
-      <div>
-        <h1>{question.question}</h1>
-        {Object.keys(question.answers)
-            .filter((a) => question.answers[a])
-            .map((a) => (
-                <div key={a}>
-                  <button onClick={() => handleAnswer(a)}>
-                    {question.answers[a]}
-                  </button>
-                </div>
-            ))}
-      </div>
+    <div>
+      <h1>{question.question}</h1>
+      {Object.keys(question.answers)
+        .filter((a) => question.answers[a])
+        .map((a) => (
+          <div key={a}>
+            <button onClick={() => handleAnswer(a)}>
+              {question.answers[a]}
+            </button>
+          </div>
+        ))}
+    </div>
   );
 
   async function fetchJSON(url) {
@@ -95,40 +93,49 @@ export function ShowQuestion() {
     }
   }
 }
-  function loader(loadingFunction) {
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState();
-    const [data, setData] = useState();
+function loader(loadingFunction) {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState();
+  const [data, setData] = useState();
 
-    async function load() {
-      setLoading(true);
-      setError(undefined);
-      try {
-        setData(await loadingFunction());
-      } catch (error) {
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
+  async function load() {
+    setLoading(true);
+    setError(undefined);
+    try {
+      setData(await loadingFunction());
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
     }
-
-    useEffect(() => {
-      load();
-    }, []);
-    return { loading, error, data, load };
   }
 
-
-export function wrong() {
-  return(<Route><div>
-    <h1>Sorry, you answered wrong</h1>
-    <Link path={"/question"}><button>Neste spørsmål</button></Link>
-  </div></Route>);}
-
-export function right() {
-  return(<div>
-    <h1>Right answer!</h1>
-    <Link path={"/question"}><button>Neste spørsmål</button></Link>
-  </div>);
+  useEffect(() => {
+    load();
+  }, []);
+  return { loading, error, data, load };
 }
 
+export function wrong() {
+  return (
+    <Route>
+      <div>
+        <h1>Sorry, you answered wrong</h1>
+        <Link path={"/question"}>
+          <button>Neste spørsmål</button>
+        </Link>
+      </div>
+    </Route>
+  );
+}
+
+export function right() {
+  return (
+    <div>
+      <h1>Right answer!</h1>
+      <Link path={"/question"}>
+        <button>Neste spørsmål</button>
+      </Link>
+    </div>
+  );
+}
