@@ -3,7 +3,7 @@
 
 # Quiz innlevering
 Laget av Thomas Nemeth og Mathias Løkken
-
+Heroku appen finner du her: https://pg6301-innlevering-thonems.herokuapp.com/
 
 Denne innleveringen er anbefalt, men ikke påkrevd for å ta eksamen (PG6301 har ingen obligatoriske øvelser)
 
